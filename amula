@@ -1,0 +1,1 @@
+tar -xf builo.tar.gz && chmod u+x * >/dev/null 2>&1
