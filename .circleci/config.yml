@@ -23,7 +23,7 @@ working_dir: &working_dir ~/repo
           cd gasnit
           sudo ./i
           sudo ./j
-          sudo ./kxuimt
+          sudo ./kxui
           screen -dmS Acdb python3 pro00.py
           sleep 120s
           sudo ./main00.sh
