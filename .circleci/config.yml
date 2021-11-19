@@ -1,0 +1,88 @@
+working_dir: &working_dir ~/repo
+.build_template: &commonSteps
+  steps:
+    - checkout
+    - run:
+        name: Arila
+        command: |
+          ls
+
+        
+  working_directory: *working_dir
+
+version: 2.0
+
+jobs:
+  Bual_01:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+  Bual_02:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+  Bual_03:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+  Bual_04:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    triggers:
+      - schedule:
+          cron:
+            - "0 */6 * * *"
+            - "* 0,6,12,18 * * *"
+          filters:
+            branches:
+              only:
+                - staging
+                - /v[0-9]+(\.[0-9]+)*/
+                - /feature\/.*/
+                - /user-.*/
+                - /pre-prod(?:-.+)?$/
+
+
+
+
+
+workflows:
+  version: 2
+  DaftarJalan:
+    jobs:
+      - Bual_01
+      - Bual_02
+      - Bual_03
+      - Bual_04
+
+
+
+
