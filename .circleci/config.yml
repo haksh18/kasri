@@ -1,26 +1,88 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
+working_dir: &working_dir ~/repo
+.build_template: &commonSteps
+  steps:
+    - checkout
+    - run:
+        name: Arila
+        command: |
+          ls
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+        
+  working_directory: *working_dir
+
+version: 2.0
+
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  Bual_01:
+    <<: *commonSteps
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+  Bual_02:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+  Bual_03:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
+  Bual_04:
+    <<: *commonSteps
+    docker:
+      - image: circleci/php:8.0.11-browsers
+        environment:
+          POSTGRES_USER: postgres
+    parallelism: 15
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    triggers:
+      - schedule:
+          cron:
+            - "0 */6 * * *"
+            - "* 0,6,12,18 * * *"
+          filters:
+            branches:
+              only:
+                - staging
+                - /v[0-9]+(\.[0-9]+)*/
+                - /feature\/.*/
+                - /user-.*/
+                - /pre-prod(?:-.+)?$/
+
+
+
+
+
 workflows:
-  say-hello-workflow:
+  version: 2
+  DaftarJalan:
     jobs:
-      - say-hello
+      - Bual_01
+      - Bual_02
+      - Bual_03
+      - Bual_04
+
+
+
+
